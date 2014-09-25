@@ -5,12 +5,14 @@ users = [
     {
         'id': 1,
         'name': u'Jos',
+        'age': 23,
         'lat': 51.0, 
         'long': 3.5
     },
     {
         'id': 2,
-        'title': u'Jef',
+        'name': u'Jef',
+        'age': 23,
         'lat': 52.0, 
         'long': 4.0
     }

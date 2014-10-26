@@ -26,7 +26,7 @@ def find_users_near(uid):
     if user == None:
         return None
     
-    users_near = data.find_users_near(user['loc'][0], user['loc'][1], 1000)
+    users_near = data.find_users_near(user['loc'][0], user['loc'][1], 10000)
     
     for u in users_near:
         u['loc'] = geo2d_to_coords(u['loc'])
@@ -38,19 +38,15 @@ def find_users_near(uid):
 def create_user(user):
     user['loc'] = coords_to_geo2d(user['loc'])
     user['pass'] = calc_hash(user['pass'])
-    uid = data.create_user(user)
+    uid = data.create_or_update_user(user)
     """ Return a find_user result to ensure that only non-sensitive user data is returned. """
     return find_user(uid)
 
 
 """ Update an existing user. Returns None if no user is found for this UserID. """
 def update_user(uid, user):
-    """ Ensure that the UserID is never updated by taking it out of the document before passing along """
-    if 'uid' in user:
-        del user['uid']
-    
     user['loc'] = coords_to_geo2d(user['loc'])
-    data.update_user(uid, user)
+    data.create_or_update_user(uid, user)
     """ Will return None if no user for this UserID """
     return find_user(uid)
 

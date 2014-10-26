@@ -64,6 +64,27 @@ def find_users_near(ln, lt, distance):
     ))
 
 
+""" Create or update a user. 
+    If a UserID is present, the user is updated. 
+    If no UserID is present but a name/pass combo is found in the DB, the user is updated.
+    Otherwise, the user is created. """
+def create_or_update_user(user):
+    if 'uid' in user:
+        update_user(user['uid'], user)
+
+    elif 'name' in user and 'pass' in user:
+        db_user = db.users.find_one(
+            spec_or_id={'name': user['name'], 'pass': user['pass']}, 
+            fields=fields_filter())
+        
+        if db_user == None:
+            return create_user(user)
+        else:
+            update_user(db_user['uid'], user)
+    
+    else:
+        return create_user(user)
+
 """ Creates a new user. Generates a new UserID in the process. """
 def create_user(user):
     uid = generate_uid()
@@ -74,7 +95,11 @@ def create_user(user):
 
 
 """ Update info for a user (found via UserID). Does not return anything, NotFound logic is handled in controller. """
-def update_user(uid, user):
+def update_user(uid, user):    
+    """ Ensure UserID is never updated by removing it. """
+    if 'uid' in user:
+        del user['uid']
+    
     db.users.update({'uid': uid}, {'$set': user})
     
 

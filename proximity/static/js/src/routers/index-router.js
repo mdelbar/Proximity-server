@@ -6,6 +6,7 @@ var IndexRouter = Backbone.Router.extend({
       'refresh',
       'onUserSaved',
       'onUserLogout',
+      'onProximityError',
       'findUserInCookies',
       'storeUserInCookies',
       'deleteUserFromCookies');
@@ -14,6 +15,9 @@ var IndexRouter = Backbone.Router.extend({
   },
   
   refresh: function() {
+    // Clear error view
+    this.errorsView = new ErrorsView();
+    
     // Find the user in cookies
     var currentUser = this.findUserInCookies();
     this.currentUser = currentUser;
@@ -22,11 +26,13 @@ var IndexRouter = Backbone.Router.extend({
       // No current user in cookies, so show all users
       var usersRouter = new UsersRouter();
       this.listenTo(usersRouter, 'user:saved', this.onUserSaved);
+      this.listenTo(usersRouter, 'proximity:error', this.onProximityError);
     }
     else {
       // Current user found in cookies, so show users near that current user
       var usersNearRouter = new UsersNearRouter(this.currentUser);
       this.listenTo(usersNearRouter, 'user:logout', this.onUserLogout);
+      this.listenTo(usersNearRouter, 'proximity:error', this.onProximityError);
     }
   },
   
@@ -41,6 +47,11 @@ var IndexRouter = Backbone.Router.extend({
   onUserLogout: function() {
     this.deleteUserFromCookies();
     this.refresh();
+  },
+  
+  onProximityError: function(error) {
+    this.errorsView.addError(error);
+    this.errorsView.render();
   },
 
   // Methods managing user in cookies

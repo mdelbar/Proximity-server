@@ -1,6 +1,6 @@
 var UsersNearView = Backbone.View.extend({
   
-  el: $('#users'),
+  el: $('#map-canvas'),
   
   initialize: function() {
     _.bindAll(
@@ -10,9 +10,8 @@ var UsersNearView = Backbone.View.extend({
   },
   
   render: function(users) {
-    var userTemplate = _.template($('#userlist-template').html());
+    var mapTemplate = _.template($('#map-template').html());
     this.$el.empty();
-    this.$el.append('<h3>Users Near</h3>');
-    this.$el.append(userTemplate({'users': users}));
+    this.$el.append(mapTemplate({'users': users}));
   }
 });

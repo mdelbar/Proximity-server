@@ -1,11 +1,10 @@
 var UsersView = Backbone.View.extend({
   
-  el: $('#users'),
+  el: $('#map-canvas'),
   
   render: function(users) {
-    var userTemplate = _.template($('#userlist-template').html());
+    var mapTemplate = _.template($('#map-template').html());
     this.$el.empty();
-    this.$el.append('<h3>Users</h3>');
-    this.$el.append(userTemplate({'users': users}));
+    this.$el.append(mapTemplate({'users': users}));
   }
 });

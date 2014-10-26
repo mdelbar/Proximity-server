@@ -50,15 +50,7 @@ def create_user():
     if not request.json:
         abort(400)
         
-    user = {
-        'name': request.json['name'],
-        'pass': request.json['pass'],
-        'age': request.json['age'],
-        'gender': request.json['gender'],
-        'looking_for_m': request.json['looking_for_m'],
-        'looking_for_f': request.json['looking_for_f'],
-        'loc': request.json['loc']
-    }
+    user = request.json
     
     created_user = user_controller.create_user(user)
     

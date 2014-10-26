@@ -26,7 +26,7 @@ def find_users_near(uid):
     if user == None:
         return None
     
-    users_near = data.find_users_near(user['loc'][0], user['loc'][1], 10000)
+    users_near = data.find_users_near(user['loc'][0], user['loc'][1], 2000)
     
     for u in users_near:
         u['loc'] = geo2d_to_coords(u['loc'])
@@ -37,7 +37,8 @@ def find_users_near(uid):
 """ Create a new user. Takes user dictionary with info and returns a copy with the UserID filled in. """
 def create_user(user):
     user['loc'] = coords_to_geo2d(user['loc'])
-    user['pass'] = calc_hash(user['pass'])
+    if 'pass' in user:
+        user['pass'] = calc_hash(user['pass'])
     uid = data.create_or_update_user(user)
     """ Return a find_user result to ensure that only non-sensitive user data is returned. """
     return find_user(uid)
@@ -81,7 +82,7 @@ def load_users():
         'gender': 'm',
         'looking_for_m': 0,
         'looking_for_f': 1,
-        'loc': coords_to_geo2d([51.01,3.91])
+        'loc': coords_to_geo2d([3.91,51.01])
     })
     data.create_user({
         'name': u'TestUser2',
@@ -90,7 +91,7 @@ def load_users():
         'gender': 'f',
         'looking_for_m': 1,
         'looking_for_f': 0,
-        'loc': coords_to_geo2d([51.02,3.92])
+        'loc': coords_to_geo2d([3.92,51.02])
     })
     data.create_user({
         'name': u'TestUser3',
@@ -99,7 +100,7 @@ def load_users():
         'gender': 'm',
         'looking_for_m': 1,
         'looking_for_f': 1,
-        'loc': coords_to_geo2d([51.03,3.93])
+        'loc': coords_to_geo2d([3.93,51.03])
     })
     
     loaded_users = data.get_users()

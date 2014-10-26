@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>Proximity</title>
@@ -41,19 +42,37 @@
       </form>
     </script>
     
-    <script type="text/html" id="userlist-template">
-      <ul>
-        <% _.each(users, function(user) { %>
-          <li>Name: <%- user['name'] %> @ <%- user['loc'] %></li>
-        <% }); %>
-      </ul>
+    <script type="text/html" id="errors-template">
+      <% if(errors.length > 0) { %>
+        <ul>
+          <% _.each(errors, function(error) { %>
+            <li>Error: <%- error['reason'] %></li>
+          <% }); %>
+        </ul>
+        <a id="clear-errors" href="#" title="Clear error messages"><img src="../static/images/cross.png" alt="delete" /></a>
+      <% } %>
+    </script>
+    
+    <script type="text/html" id="infowindow-template">
+      <table>
+        <tr>
+          <td>Name:</td>
+          <td><%- user['name'] %></td>
+        </tr>
+        <tr>
+          <td>Age:</td>
+          <td><%- user['age'] %></td>
+        </tr>
+      </table>
     </script>
   </head>
   <body>
     
+    <div id="errors"></div>
+    
     <div id="account"></div>
     
-    <div id="users"></div>
+    <div id="map-canvas" style="width: 800px; height: 400px;"></div>
     
   </body>
 </html>

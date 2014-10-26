@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>Proximity</title>
+    <script data-main="../static/js/main" src="../static/js/libs/require.js"></script>
+    
+    <script type="text/html" id="loginform-template">
+      <h3>Login or sign up</h3>
+      <form id="loginform" action="#">
+        <table>
+          <tr>
+            <td>Name</td>
+            <td colspan="2"><input id="name" type="text" /></td>
+          </tr>
+          <tr>
+            <td>Password</td>
+            <td colspan="2"><input id="pass" type="password" /></td>
+          </tr>
+          <tr>
+            <td>Age</td>
+            <td colspan="2"><input id="age" type="text" /></td>
+          </tr>
+          <tr>
+            <td>Gender</td>
+            <td><input id="gender" type="radio" name="gender" value="m" /> Male</td>
+            <td><input id="gender" type="radio" name="gender" value="f" /> Female</td>
+          </tr>
+          <tr>
+            <td>Looking for</td>
+            <td><input id="looking_for_m" type="checkbox" /> Men</td>
+            <td><input id="looking_for_f" type="checkbox" /> Women</td>
+          </tr>
+        </table>
+        <input type="submit" value="Go" />
+      </form>
+    </script>
+    
+    <script type="text/html" id="logoutform-template">
+      <h3>Hi there, <%- user['name'] %>!</h3>
+      <form id="logoutform" action="#">
+        <input type="submit" value="Logout" />
+      </form>
+    </script>
+    
+    <script type="text/html" id="userlist-template">
+      <ul>
+        <% _.each(users, function(user) { %>
+          <li>Name: <%- user['name'] %> @ <%- user['loc'] %></li>
+        <% }); %>
+      </ul>
+    </script>
+  </head>
+  <body>
+    
+    <div id="account"></div>
+    
+    <div id="users"></div>
+    
+  </body>
+</html>

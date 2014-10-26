@@ -55,3 +55,6 @@ target/
 
 # Flask
 virtualenv/
+
+# NodeJS (NPM) modules
+node_modules/

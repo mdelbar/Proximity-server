@@ -9,6 +9,7 @@ from pymongo import GEOSPHERE
         '_id': '5446a4539fd1ad339e8e286b',      ObjectId        MongoDB-generated internal ID for DB Document
         'uid': 1,                               long            Unique ID, used throughout app
         'name': u'TestUser1',                   str             Username
+        'pass': 'e6c...349,                     str             Password (stored as hash)
         'age': 25,                              int             Age
         'gender': 'm',                          char (m/f)      Gender
         'looking_for_m': 0,                     bool (0/1)      Looking for men?
@@ -30,21 +31,25 @@ def clear_db():
 def init_db():
     db.users.create_index([("loc", GEOSPHERE)])
 
+""" Defines the filter on which fields to return. Hides _id and password fields which should never be sent outside. """
+def fields_filter():
+    return {'_id': False, 'pass': False}
 
-""" Get all users in the DB. Ignores _id field which should never be shown to the outside. """
+
+""" Get all users in the DB. """
 def get_users():
-    return list(db.users.find(fields={'_id': False}))
+    return list(db.users.find(fields=fields_filter()))
 
 
-""" Find a single user via UserID. Ignores _id field which should never be dhown to the outside. """
+""" Find a single user via UserID. """
 def find_user(uid):
-    return db.users.find_one(spec_or_id={'uid': uid}, fields={'_id': False})
+    return db.users.find_one(spec_or_id={'uid': uid}, fields=fields_filter())
 
 
 """ Find users near a coordinate and within a certain distance. """
 def find_users_near(ln, lt, distance):
     return list(db.users.find(
-        fields={'_id': False}, 
+        fields=fields_filter(), 
         spec={
             'loc': {
                 '$near': {
@@ -70,7 +75,6 @@ def create_user(user):
 
 """ Update info for a user (found via UserID). Does not return anything, NotFound logic is handled in controller. """
 def update_user(uid, user):
-    
     db.users.update({'uid': uid}, {'$set': user})
     
 

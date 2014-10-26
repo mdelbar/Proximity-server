@@ -1,21 +1,17 @@
-from flask import jsonify, abort, make_response, request
+from flask import jsonify, abort, make_response, request, render_template
 from proximity import app, user_controller
 
 """ View handles routing and minor JSON mapping. Delegates to controllers for actual logic. """
 
-""" Test DB methods """
-
-@app.route('/users/load', methods=['GET'])
-def load_users():
-    return jsonify({'users': user_controller.load_users()})
-    
-
-@app.route('/users', methods=['GET'])
-def get_all_users():
-    return jsonify({'users': user_controller.find_all_users()})
-
 
 """ GET Methods """
+
+""" Get the index page. """
+@app.route('/')
+@app.route('/index')
+def index():
+    return render_template('index.html')
+
 
 """ Get a user based on their UserID """
 @app.route('/users/<int:uid>', methods=['GET'])
@@ -28,9 +24,16 @@ def get_user(uid):
 
 
 """ Find all users near a user. For the web app, near means within 1km. """
-@app.route('/users_near/<int:uid>', methods=['GET'])
-def get_users_near(uid):
-    users = user_controller.find_users_near(uid)
+@app.route('/users_near/', methods=['GET'])
+def get_users_near():
+    args = request.args
+    uid = None
+    if 'uid' in args:
+        uid = args.get('uid')
+    else:
+        abort(400)
+    print('Gonna find users near UID [%s] of type [%s]' % (uid, type(uid)))
+    users = user_controller.find_users_near(long(uid))
     if users == None:
         """ User not found """
         abort(404)
@@ -49,6 +52,7 @@ def create_user():
         
     user = {
         'name': request.json['name'],
+        'pass': request.json['pass'],
         'age': request.json['age'],
         'gender': request.json['gender'],
         'looking_for_m': request.json['looking_for_m'],
@@ -87,6 +91,17 @@ def not_found(error):
 	return make_response(jsonify({'error': 'Not found'}), 404)
 
   
+
+""" Test DB methods """
+
+@app.route('/users/load', methods=['GET'])
+def load_users():
+    return jsonify({'users': user_controller.load_users()})
+
+
+@app.route('/users', methods=['GET'])
+def get_all_users():
+    return jsonify({'users': user_controller.find_all_users()})
   
 
 

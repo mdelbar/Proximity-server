@@ -14,7 +14,9 @@ def find_all_users():
 """ Find a user via their UserID """
 def find_user(uid):
     user = data.find_user(uid)
-    user['loc'] = geo2d_to_coords(user['loc'])
+    print('User found: [%s]' % (user))
+    if user != None:
+        user['loc'] = geo2d_to_coords(user['loc'])
     return user
 
 
@@ -34,11 +36,11 @@ def find_users_near(uid):
 
 """ Create a new user. Takes user dictionary with info and returns a copy with the UserID filled in. """
 def create_user(user):
-    user_copy = deepcopy(user)
     user['loc'] = coords_to_geo2d(user['loc'])
+    user['pass'] = calc_hash(user['pass'])
     uid = data.create_user(user)
-    user_copy['uid'] = uid
-    return user_copy
+    """ Return a find_user result to ensure that only non-sensitive user data is returned. """
+    return find_user(uid)
 
 
 """ Update an existing user. Returns None if no user is found for this UserID. """
@@ -65,7 +67,7 @@ def geo2d_to_coords(geo2d):
     return deepcopy(geo2d['coordinates'])
 
 
-""" Make a hash of a string. """
+""" Make a SHA-256 hash of a string. """
 def calc_hash(s):
     hash_obj = hashlib.sha256(s.encode())
     return hash_obj.hexdigest()

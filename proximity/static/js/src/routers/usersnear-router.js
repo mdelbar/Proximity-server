@@ -54,8 +54,8 @@ var UsersNearRouter = Backbone.Router.extend({
   },
   
   usersNearFetchError: function(error) {
-    this.trigger('proximity:error', {'reason': 'User does not exist, logged out automatically.'});
     this.trigger('user:logout');
+    this.trigger('proximity:error', {'reason': 'User does not exist, logged out automatically.'});
   },
   
   onUserLogout: function() {

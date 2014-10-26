@@ -2,55 +2,82 @@
 <html>
   <head>
     <title>Proximity</title>
+    <link href="../static/css/foundation.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="../static/css/normalize.css" media="all" rel="stylesheet" type="text/css" />
     <script data-main="../static/js/main" src="../static/js/libs/require.js"></script>
     
     <script type="text/html" id="loginform-template">
-      <h3>Login or sign up</h3>
-      <form id="loginform" action="#">
-        <table>
-          <tr>
-            <td>Name</td>
-            <td colspan="2"><input id="name" type="text" /></td>
-          </tr>
-          <tr>
-            <td>Password</td>
-            <td colspan="2"><input id="pass" type="password" /></td>
-          </tr>
-          <tr>
-            <td>Age</td>
-            <td colspan="2"><input id="age" type="text" /></td>
-          </tr>
-          <tr>
-            <td>Gender</td>
-            <td><input id="gender" type="radio" name="gender" value="m" /> Male</td>
-            <td><input id="gender" type="radio" name="gender" value="f" /> Female</td>
-          </tr>
-          <tr>
-            <td>Looking for</td>
-            <td><input id="looking_for_m" type="checkbox" /> Men</td>
-            <td><input id="looking_for_f" type="checkbox" /> Women</td>
-          </tr>
-        </table>
-        <input type="submit" value="Go" />
-      </form>
+      <div class="row">
+        <div class="small-12 medium-6 medium-centered columns">
+          <h5>Submit your info to find users near you!</h5>
+          <form id="loginform" action="#">
+            <div class="row">
+              <div class="small-12 columns">
+                <label>Name
+                  <input id="name" type="text" />
+                </label>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="small-12 columns">
+                <label>Password
+                  <input id="pass" type="password" />
+                </label>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="small-12 columns">
+                <label for="age">Age
+                  <input id="age" type="text" />
+                </label>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="small-12 columns">
+                <label>Gender</label>
+                <input type="radio" name="gender" value="m" id="male"><label for="male">Male</label>
+                <input type="radio" name="gender" value="f" id="female"><label for="female">Female</label>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="small-12 columns">
+                <label>Looking for</label>
+                <input id="looking_for_m" type="checkbox" /><label for="looking_for_m">Men</label>
+                <input id="looking_for_f" type="checkbox" /><label for="looking_for_f">Women</label>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="small-12 columns"><input type="submit" value="Submit" class="button" style="width: 100%" /></div>
+            </div>
+          </form>
+        </div>
+      </div>
     </script>
     
     <script type="text/html" id="logoutform-template">
-      <h3>Hi there, <%- user['name'] %>!</h3>
-      <form id="logoutform" action="#">
-        <input type="submit" value="Logout" />
-      </form>
+      <div class="row">
+        <div class="small-12 medium-6 medium-centered large-4 columns">
+          <h5>Hi there, <%- user['name'] %>!</h5>
+          <p>Currently showing users near you. Log out to see all users.</p>
+          <a href="#" id="logoutbtn" class="button" style="width: 100%">Logout</a>
+        </div>
+      </div>
     </script>
     
     <script type="text/html" id="errors-template">
-      <% if(errors.length > 0) { %>
-        <ul>
-          <% _.each(errors, function(error) { %>
-            <li>Error: <%- error['reason'] %></li>
-          <% }); %>
-        </ul>
-        <a id="clear-errors" href="#" title="Clear error messages"><img src="../static/images/cross.png" alt="delete" /></a>
-      <% } %>
+      <% _.each(errors, function(error) { %>
+        <div class="row">
+          <div data-alert class="alert-box alert small-12 medium-12 large-10 large-centered columns">
+            Error: <%- error['reason'] %>
+            <a href="#" class="close">&times;</a>
+          </div>
+        </div>
+      <% }); %>
     </script>
     
     <script type="text/html" id="infowindow-template">
@@ -68,11 +95,21 @@
   </head>
   <body>
     
+    <div id="header" style="border-bottom: 1px solid #AAAAAA; margin-bottom: 2rem;">
+      <div class="row">
+        <div class="small-12 medium-10 medium-centered columns">
+          <h1>Proximity</h1>
+        </div>
+      </div>
+    </div>
+    
     <div id="errors"></div>
     
     <div id="account"></div>
     
-    <div id="map-canvas" style="width: 800px; height: 400px;"></div>
+    <div class="row">
+      <div id="map-canvas" class="small-12 medium-10 medium-centered columns" style="height: 20rem; margin-bottom: 2rem;"></div>
+    </div>
     
   </body>
 </html>

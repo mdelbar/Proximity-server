@@ -5,7 +5,9 @@ var MapView = Backbone.View.extend({
   initialize: function() {
     _.bindAll(
       this, 
-      'render'
+      'render',
+      'centerMap',
+      'addUserMarkerToMap'
     );
     
     var mapOptions = {
@@ -17,27 +19,38 @@ var MapView = Backbone.View.extend({
     // Don't bind map to "this", but to Window, for easier access
     map = new google.maps.Map(this.el, mapOptions);
     
+    // Keep track of bounds so we can re-center the map if need be
+    this.bounds = new google.maps.LatLngBounds();
+		
+		// Re-center map on window resize
+		google.maps.event.addDomListener(window, 'resize', this.centerMap);
   },
   
   render: function(users, currentUser) {
-    var bounds = new google.maps.LatLngBounds();
+    this.bounds = new google.maps.LatLngBounds();
     
     // Add current user to map (if applicable)
     if(currentUser) {
       var latlng = this.addUserMarkerToMap(currentUser, 'static/images/map-pin-green.png');
-      bounds.extend(latlng);
+      this.bounds.extend(latlng);
     }
     
     // Add each marker to the map
     for(var i = 0; i < users.length; i++) {
       var user = users[i];
       latlng = this.addUserMarkerToMap(user);
-      bounds.extend(latlng);
+      this.bounds.extend(latlng);
     }
     
     // Zoom/pan to fit all markers
-    map.setCenter(bounds.getCenter());
-    map.fitBounds(bounds);
+    this.centerMap();
+  },
+  
+  centerMap: function() {
+    if(!this.bounds.isEmpty()) {
+      map.setCenter(this.bounds.getCenter());
+      map.fitBounds(this.bounds);
+    }
   },
   
   addUserMarkerToMap: function(user, icon) {

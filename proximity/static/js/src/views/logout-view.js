@@ -3,7 +3,7 @@ var LogoutView = Backbone.View.extend({
   el: $('#account'),
   
   events: {
-    'submit #logoutform': 'logout'
+    'click #logoutbtn': 'logout'
   },
 
   initialize: function(userInfo) {

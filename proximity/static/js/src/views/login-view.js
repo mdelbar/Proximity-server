@@ -16,6 +16,11 @@ var LoginView = Backbone.View.extend({
     event.preventDefault();
     var name = $('#name').val();
     var pass = $('#pass').val();
+    // Sanity check for age
+    if(!this.isValidAge($('#age').val())) {
+      this.trigger('proximity:error', {'reason': 'Age must be a positive number.'});
+      return;
+    }
     var age = parseInt($('#age').val());
     var gender = $('#gender').val();
     var looking_for_m = $('#looking_for_m').prop('checked') ? 1 : 0;
@@ -30,5 +35,11 @@ var LoginView = Backbone.View.extend({
       'looking_for_m': looking_for_m,
       'looking_for_f': looking_for_f
     });
+  },
+  
+  isValidAge: function(value) {
+    return !isNaN(value)
+      && parseInt(Number(value)) == value
+      && parseInt(value) > 1;
   }
 });

@@ -17,6 +17,7 @@ var IndexRouter = Backbone.Router.extend({
   refresh: function() {
     // Clear error view
     this.errorsView = new ErrorsView();
+    this.errorsView.render();
     
     // Find the user in cookies
     var currentUser = this.findUserInCookies();

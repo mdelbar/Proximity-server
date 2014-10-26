@@ -2,16 +2,11 @@ var ErrorsView = Backbone.View.extend({
   
   el: $('#errors'),
   
-  events: {
-    'click #clear-errors': 'clearErrors'
-  },
-  
   initialize: function() {
     _.bindAll(
       this,
       'render',
-      'addError',
-      'clearErrors'
+      'addError'
     );
     
     this.errors = [];
@@ -24,9 +19,5 @@ var ErrorsView = Backbone.View.extend({
   
   addError: function(error) {
     this.errors.push(error);
-  },
-  
-  clearErrors: function() {
-    this.errors = [];
   }
 });

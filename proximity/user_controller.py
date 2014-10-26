@@ -28,6 +28,9 @@ def find_users_near(uid):
     
     users_near = data.find_users_near(user['loc'][0], user['loc'][1], 2000)
     
+    """ Filter out own user """
+    users_near = filter(lambda u: u['uid'] != uid, users_near)
+    
     for u in users_near:
         u['loc'] = geo2d_to_coords(u['loc'])
     

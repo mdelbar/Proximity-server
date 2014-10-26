@@ -1,5 +1,6 @@
 from proximity import db
 from pymongo import GEOSPHERE
+from copy import deepcopy
 
 """ Database CRUD methods """
 
@@ -70,17 +71,18 @@ def find_users_near(ln, lt, distance):
     Otherwise, the user is created. """
 def create_or_update_user(user):
     if 'uid' in user:
-        update_user(user['uid'], user)
+        return update_user(user['uid'], user)
 
     elif 'name' in user and 'pass' in user:
         db_user = db.users.find_one(
             spec_or_id={'name': user['name'], 'pass': user['pass']}, 
-            fields=fields_filter())
+            fields=fields_filter()
+        )
         
         if db_user == None:
             return create_user(user)
         else:
-            update_user(db_user['uid'], user)
+            return update_user(db_user['uid'], user)
     
     else:
         return create_user(user)
@@ -88,20 +90,22 @@ def create_or_update_user(user):
 """ Creates a new user. Generates a new UserID in the process. """
 def create_user(user):
     uid = generate_uid()
-    user['uid'] = uid
-    user_id = db.users.insert(user)
+    db_user = deepcopy(user)
+    db_user['uid'] = uid
+    user_id = db.users.insert(db_user)
     print('User stored with ID: [%s] for UID [%s]' % (user_id, uid))
     return uid
 
 
 """ Update info for a user (found via UserID). Does not return anything, NotFound logic is handled in controller. """
 def update_user(uid, user):    
-    """ Ensure UserID is never updated by removing it. """
-    if 'uid' in user:
-        del user['uid']
+    """ Ensure UserID is never updated by removing it in a copy. """
+    db_user = deepcopy(user)
+    if 'uid' in db_user:
+        del db_user['uid']
     
-    db.users.update({'uid': uid}, {'$set': user})
-    
+    db.users.update({'uid': uid}, {'$set': db_user})
+    return uid
 
 
 """ Helper functions """

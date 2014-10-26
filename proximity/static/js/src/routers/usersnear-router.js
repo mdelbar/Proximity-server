@@ -3,6 +3,7 @@ var UsersNearRouter = Backbone.Router.extend({
     _.bindAll(
       this,
       'usersNearFetched',
+      'usersNearFetchError',
       'onUserLogout'
     );
     
@@ -23,12 +24,17 @@ var UsersNearRouter = Backbone.Router.extend({
       data: {
         'uid': currentUser.uid
       },
-      success: this.usersNearFetched
+      success: this.usersNearFetched,
+      error: this.usersNearFetchError
     });
   },
   
   usersNearFetched: function(model) {
     this.usersNearView.render(model.get('users'));
+  },
+  
+  usersNearFetchError: function(error) {
+    this.trigger('user:logout');
   },
   
   onUserLogout: function() {

@@ -14,7 +14,6 @@ def find_all_users():
 """ Find a user via their UserID """
 def find_user(uid):
     user = data.find_user(uid)
-    print('User found: [%s]' % (user))
     if user != None:
         user['loc'] = geo2d_to_coords(user['loc'])
     return user

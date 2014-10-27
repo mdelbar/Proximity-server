@@ -93,7 +93,6 @@ def create_user(user):
     db_user = deepcopy(user)
     db_user['uid'] = uid
     user_id = db.users.insert(db_user)
-    print('User stored with ID: [%s] for UID [%s]' % (user_id, uid))
     return uid
 
 

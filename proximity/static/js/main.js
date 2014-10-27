@@ -39,6 +39,7 @@ define(['jquery', 'foundation', 'underscore', 'backbone', 'googlemaps', 'proximi
   $(document).ready(function() {
     var ProximityApp = Backbone.View.extend({
       initialize: function() {
+        // Start up the main router
         var indexRouter = new IndexRouter();
       }
     });

@@ -32,7 +32,7 @@ def get_users_near():
         uid = args.get('uid')
     else:
         abort(400)
-    print('Gonna find users near UID [%s] of type [%s]' % (uid, type(uid)))
+    
     users = user_controller.find_users_near(long(uid))
     if users == None:
         """ User not found """

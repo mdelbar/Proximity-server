@@ -2,10 +2,13 @@
 <html>
   <head>
     <title>Proximity</title>
+    
     <link href="../static/css/foundation.min.css" media="all" rel="stylesheet" type="text/css" />
     <link href="../static/css/normalize.css" media="all" rel="stylesheet" type="text/css" />
+    
     <script data-main="../static/js/main" src="../static/js/libs/require.js"></script>
     
+    <!-- Template for the login form -->
     <script type="text/html" id="loginform-template">
       <div class="row">
         <div class="small-12 medium-6 medium-centered columns">
@@ -59,16 +62,18 @@
       </div>
     </script>
     
+    <!-- Template for the "logout form", aka the view a user sees when they're logged in -->
     <script type="text/html" id="logoutform-template">
       <div class="row">
         <div class="small-12 medium-6 medium-centered large-4 columns">
-          <h5>Hi there, <%- user['name'] %>!</h5>
+          <h5>Hi there, <strong><em><%- user.get('name') %></em></strong>!</h5>
           <p>Currently showing users near you. Log out to see all users.</p>
           <a href="#" id="logoutbtn" class="button" style="width: 100%">Logout</a>
         </div>
       </div>
     </script>
     
+    <!-- Template for the error view's list of errors -->
     <script type="text/html" id="errors-template">
       <% _.each(errors, function(error) { %>
         <div class="row">
@@ -80,6 +85,7 @@
       <% }); %>
     </script>
     
+    <!-- Template for a Google Maps InfoWindow (popup when user clicks a marker) -->
     <script type="text/html" id="infowindow-template">
       <table>
         <tr>

@@ -26,7 +26,7 @@ require.config({
 	waitSeconds: 30
 });
 
-define('googlemaps', ['async!http://maps.google.com/maps/api/js?sensor=false'], function() {
+define('googlemaps', ['async!http://maps.google.com/maps/api/js?key=AIzaSyB9kiwVwxAlD81EZZzgf_5j-VF2ljD83Ec'], function() {
     // Google Maps API and all its dependencies will be loaded here.
 });
 

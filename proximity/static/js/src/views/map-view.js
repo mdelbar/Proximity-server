@@ -59,6 +59,7 @@ var MapView = Backbone.View.extend({
     this.bounds = new google.maps.LatLngBounds();
     
     // Add current user to map (if applicable)
+    // Do this first so the larger icon doesn't accidentally hide other users
     if(currentUser) {
       // User currentUser attributes to conform to expected data type
       var latlng = this.addUserMarkerToMap(currentUser.attributes, 'static/images/map-pin-green.png');

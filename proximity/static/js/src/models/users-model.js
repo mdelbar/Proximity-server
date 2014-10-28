@@ -7,7 +7,7 @@ var UsersModel = Backbone.Model.extend({
    * URL to use for fetching.
    */
   url: function() {
-    return "https://" + this.document.location.host + "/users";
+    return "https://" + document.location.host + "/users";
   }
   
 });

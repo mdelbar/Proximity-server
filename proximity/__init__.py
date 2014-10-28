@@ -1,5 +1,6 @@
 from os import environ
 from flask import Flask
+from urlparse import urlparse
 from pymongo import Connection
 
 MONGOHQ_URL = environ.get('MONGOHQ_URL')

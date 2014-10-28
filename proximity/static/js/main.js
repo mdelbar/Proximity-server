@@ -5,7 +5,7 @@ require.config({
     underscore: 'libs/underscore-min',
     backbone: 'libs/backbone-min',
     async: 'libs/async',
-    proximity: 'build/proximity'
+    proximity: 'build/proximity.min'
   },
   shim: {
 		backbone : {

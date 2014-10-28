@@ -117,15 +117,3 @@ def load_users():
     
     return loaded_users
 
-
-
-
-
-
-
-
-
-
-
-
-

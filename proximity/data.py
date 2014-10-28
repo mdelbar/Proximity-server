@@ -131,19 +131,3 @@ def generate_uid():
     else:
         return next['val']
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

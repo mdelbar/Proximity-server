@@ -95,12 +95,3 @@ def load_users():
 def get_all_users():
     return jsonify({'users': user_controller.find_all_users()})
   
-
-
-
-
-
-
-
-
-

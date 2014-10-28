@@ -7,7 +7,7 @@ var UsersNearModel = Backbone.Model.extend({
    * URL to use for fetching.
    */
   url: function() {
-    return "https://" + document.location.host + "/users_near";
+    return "//" + document.location.host + "/users_near";
   }
   
 });

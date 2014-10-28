@@ -82,7 +82,7 @@ var UsersModel = Backbone.Model.extend({
    * URL to use for fetching.
    */
   url: function() {
-    return "/users";
+    return "https://" + this.document.location.host + "/users";
   }
   
 });
@@ -95,7 +95,7 @@ var UsersNearModel = Backbone.Model.extend({
    * URL to use for fetching.
    */
   url: function() {
-    return "/users_near";
+    return "https://" + this.document.location.host + "/users_near";
   }
   
 });

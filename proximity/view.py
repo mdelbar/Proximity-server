@@ -24,7 +24,7 @@ def get_user(uid):
 
 
 """ Find all users near a user. For the web app, near means within 1km. """
-@app.route('/users_near/', methods=['GET'])
+@app.route('/users_near', methods=['GET'])
 def get_users_near():
     args = request.args
     uid = None

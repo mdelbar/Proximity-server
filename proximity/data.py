@@ -127,10 +127,8 @@ def generate_uid():
         new=True
     )
     if next == None:
-        print('Error generating new UserID')
-        return -1
+        return None
     else:
-        print('New UserID generated: [%s]' % next['val'])
         return next['val']
 
 

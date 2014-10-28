@@ -49,6 +49,9 @@ var IndexRouter = Backbone.Router.extend({
       this.listenTo(usersNearRouter, 'user:logout', this.onUserLogout);
       this.listenTo(usersNearRouter, 'proximity:error', this.onProximityError);
     }
+    
+    // Scroll to top of page to "reset" view
+    window.scrollTo(0, 0);
   },
   
   // Event handler methods
@@ -83,6 +86,8 @@ var IndexRouter = Backbone.Router.extend({
   onProximityError: function(error) {
     this.errorsView.addError(error);
     this.errorsView.render();
+    // Scroll to top of page to ensure error is seen
+    window.scrollTo(0, 0);
   },
 
   // Methods managing user in cookies

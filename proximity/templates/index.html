@@ -13,11 +13,11 @@
     <!-- Template for the login form -->
     <script type="text/html" id="loginform-template">
       <div class="row">
-        <div class="small-12 medium-6 medium-centered columns">
+        <div class="small-10 medium-6 medium-centered columns">
           <h5>Submit your info to find users near you!</h5>
           <form id="loginform" action="#">
             <div class="row">
-              <div class="small-12 columns">
+              <div class="small-10 columns">
                 <label>Name
                   <input id="name" type="text" />
                 </label>
@@ -25,7 +25,7 @@
             </div>
             
             <div class="row">
-              <div class="small-12 columns">
+              <div class="small-10 columns">
                 <label>Password
                   <input id="pass" type="password" />
                 </label>
@@ -33,7 +33,7 @@
             </div>
             
             <div class="row">
-              <div class="small-12 columns">
+              <div class="small-10 columns">
                 <label for="age">Age
                   <input id="age" type="text" />
                 </label>
@@ -41,7 +41,7 @@
             </div>
             
             <div class="row">
-              <div class="small-12 columns">
+              <div class="small-10 columns">
                 <label>Gender</label>
                 <input type="radio" name="gender" value="m" id="male"><label for="male">Male</label>
                 <input type="radio" name="gender" value="f" id="female"><label for="female">Female</label>
@@ -49,7 +49,7 @@
             </div>
             
             <div class="row">
-              <div class="small-12 columns">
+              <div class="small-10 columns">
                 <label>Looking for</label>
                 <input id="looking_for_m" type="checkbox" /><label for="looking_for_m">Men</label>
                 <input id="looking_for_f" type="checkbox" /><label for="looking_for_f">Women</label>
@@ -57,7 +57,7 @@
             </div>
             
             <div class="row">
-              <div class="small-12 columns"><input type="submit" value="Submit" class="button" style="width: 100%" /></div>
+              <div class="small-10 columns"><input type="submit" value="Submit" class="button" style="width: 100%" /></div>
             </div>
           </form>
         </div>
@@ -67,7 +67,7 @@
     <!-- Template for the "logout form", aka the view a user sees when they're logged in -->
     <script type="text/html" id="logoutform-template">
       <div class="row">
-        <div class="small-12 medium-6 medium-centered large-4 columns">
+        <div class="small-10 medium-6 medium-centered large-4 columns">
           <h5>Hi there, <strong><em><%- user.get('name') %></em></strong>!</h5>
           <p>Currently showing users near you. Log out to see all users.</p>
           <a href="#" id="logoutbtn" class="button" style="width: 100%">Logout</a>
@@ -105,7 +105,7 @@
     
     <div id="header" style="border-bottom: 1px solid #AAAAAA; margin-bottom: 2rem;">
       <div class="row">
-        <div class="small-12 medium-10 medium-centered columns">
+        <div class="small-10 small-centered columns">
           <h1>Proximity</h1>
         </div>
       </div>
@@ -116,7 +116,7 @@
     <div id="account"></div>
     
     <div class="row">
-      <div id="map-canvas" class="small-12 medium-10 medium-centered columns" style="height: 20rem; margin-bottom: 2rem;"></div>
+      <div id="map-canvas" class="small-10 small-centered columns" style="height: 20rem; margin-bottom: 2rem;"></div>
     </div>
     
   </body>

@@ -1,6 +1,7 @@
 from proximity import data
 from copy import deepcopy
 import hashlib
+import random
 
 """ User-related controller methods """
 
@@ -77,33 +78,37 @@ def calc_hash(s):
 def load_users():
     data.clear_db()
     data.init_db()
-    data.create_user({
-        'name': u'TestUser1',
-        'pass': calc_hash('pass1'),
-        'age': 21,
-        'gender': 'm',
-        'looking_for_m': 0,
-        'looking_for_f': 1,
-        'loc': coords_to_geo2d([3.91,51.01])
-    })
-    data.create_user({
-        'name': u'TestUser2',
-        'pass': calc_hash('pass2'),
-        'age': 22,
-        'gender': 'f',
-        'looking_for_m': 1,
-        'looking_for_f': 0,
-        'loc': coords_to_geo2d([3.92,51.02])
-    })
-    data.create_user({
-        'name': u'TestUser3',
-        'pass': calc_hash('pass3'),
-        'age': 23,
-        'gender': 'm',
-        'looking_for_m': 1,
-        'looking_for_f': 1,
-        'loc': coords_to_geo2d([3.93,51.03])
-    })
+    
+    """ Create some users near me (Belgium) """
+    for i in range(1,10):
+        """ Generate random lat/long within boundaries"""
+        lt = 51.00 + (random.random() / 100.0 * random.choice([1,(-1)]))
+        ln = 3.92 + (random.random() / 100.0 * random.choice([1,(-1)]))
+        data.create_user({
+            'name': u'TestUser%s' % (i),
+            'pass': calc_hash('pass%s' % (i)),
+            'age': 20 + i,
+            'gender': random.choice(['m','f']),
+            'looking_for_m': random.choice([0,1]),
+            'looking_for_f': random.choice([0,1]),
+            'loc': coords_to_geo2d([ln,lt])
+        })
+    
+    
+    """ Create some users near Uber (San Francisco) """
+    for i in range(11,20):
+        """ Generate random lat/long within boundaries"""
+        lt = 37.79 + (random.random() / 100.0 * random.choice([1,(-1)]))
+        ln = (-122.39) + (random.random() / 100.0 * random.choice([1,(-1)]))
+        data.create_user({
+            'name': u'TestUser%s' % (i),
+            'pass': calc_hash('pass%s' % (i)),
+            'age': 20 + i,
+            'gender': random.choice(['m','f']),
+            'looking_for_m': random.choice([0,1]),
+            'looking_for_f': random.choice([0,1]),
+            'loc': coords_to_geo2d([ln,lt])
+        })
     
     loaded_users = data.get_users()
     
